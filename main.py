@@ -42,7 +42,7 @@ def predict(nutrient: str = Query(...), label_claim: float = Query(...), age_gro
     quad = row['Pred_Quadratic_Coeff']
     predicted = intercept + linear * label_claim + quad * (label_claim ** 2)
 
-    return {{
+    return {
         "nutrient": row['Nutrient'],
         "age_group": row['Age_Group'],
         "label_claim": label_claim,
@@ -50,7 +50,7 @@ def predict(nutrient: str = Query(...), label_claim: float = Query(...), age_gro
         "model_intercept": round(intercept, 4),
         "model_linear": round(linear, 4),
         "model_quadratic": round(quad, 6)
-    }}
+    }
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
