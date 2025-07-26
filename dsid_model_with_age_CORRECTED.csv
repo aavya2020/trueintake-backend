@@ -1,0 +1,15 @@
+Nutrient,Min_Label_Claim,Max_Label_Claim,Pred_Intercept,Pred_Linear_Coeff,Pred_Quadratic_Coeff,Age_Group
+Calcium,25.0,512,41.1226,0.2589,0.0,Adult
+Iron,0.8,25,4.5842,0.4283,0.0,Adult
+Magnesium,10.0,500,8.4428,0.8054,0.0,Adult
+Vitamin C,25.0,1000,20.4201,0.8285,0.0,Adult
+Zinc,2.0,30,11.0423,0.5722,0.0,Adult
+Folic Acid,12.5,1000,13.1726,1.2023,0.0,Adult
+Vitamin B-12,2.0,800,1.7194,0.4923,0.0,Adult
+Vitamin D,100.0,4000,6.9141,0.8622,0.0,Adult
+Vitamin A,1000.0,20000,198.0241,0.4579,0.0,Adult
+Vitamin E,3.0,200,5.1473,0.7131,0.0,Adult
+Riboflavin,0.2,80,18.889,0.5415,0.0,Adult
+Vitamin B-6,1.0,150,4.7329,0.7612,0.0,Adult
+Iodine,12.8,150,14.0747,0.7475,0.0,Adult
+ALA,200.0,7000,8.6519,0.9165,0.0,Adult
