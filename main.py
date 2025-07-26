@@ -15,22 +15,26 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Load DSID model data
-df = pd.read_csv("dsid_model_data.csv")
+# Load DSID model with Age_Group
+df = pd.read_csv("dsid_model_with_age.csv")
 
 @app.get("/predict")
-def predict(nutrient: str = Query(...), label_claim: float = Query(...)):
+def predict(nutrient: str = Query(...), label_claim: float = Query(...), age_group: str = Query("Adult")):
     nutrient_lower = nutrient.strip().lower()
+    age_group = age_group.strip().capitalize()
 
-    # Attempt exact match first
-    row = df[df['Nutrient'].str.lower() == nutrient_lower]
+    # Filter by Age_Group
+    df_filtered = df[df['Age_Group'] == age_group]
 
-    # If not found, try partial match
+    # Try exact match first
+    row = df_filtered[df_filtered['Nutrient'].str.lower() == nutrient_lower]
+
+    # Fuzzy match fallback
     if row.empty:
-        row = df[df['Nutrient'].str.lower().str.contains(nutrient_lower)]
+        row = df_filtered[df_filtered['Nutrient'].str.lower().str.contains(nutrient_lower)]
 
     if row.empty:
-        return {"error": "Nutrient not found in DSID model"}
+        return {"error": f"Nutrient not found in DSID model for {age_group} group."}
 
     intercept = row['Pred_Intercept'].values[0]
     linear = row['Pred_Linear_Coeff'].values[0]
@@ -39,6 +43,7 @@ def predict(nutrient: str = Query(...), label_claim: float = Query(...)):
     return {
         "nutrient": row['Nutrient'].values[0],
         "label_claim": label_claim,
+        "age_group": age_group,
         "predicted_measured_amount": round(predicted, 4)
     }
 
